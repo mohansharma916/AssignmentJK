@@ -8,9 +8,17 @@ This project is a comprehensive backend application built using **NestJS**. It i
 
 ## Features
 
+
+
+
 ### Authentication Module
+
+
+
 - **User Registration**: Register new users.
+
 - **User Login**: Authenticate users and provide JWT tokens.
+
 - **Role-Based Access Control (RBAC)**: Restrict access to certain endpoints based on roles (e.g., Admin).
 
 ### User Module
