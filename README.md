@@ -50,8 +50,9 @@ This project is a comprehensive backend application built using **NestJS**. It i
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mohansharma916/JK_ASSIGNMENT
-   cd JK_ASSIGNMENT
+   git clone https://github.com/mohansharma916/AssignmentJK.git
+   cd assignment-jk
+
    ```
 
 2. Install dependencies:
