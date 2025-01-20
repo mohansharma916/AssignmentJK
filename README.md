@@ -1,73 +1,206 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Project Documentation
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This project is a comprehensive backend application built using **NestJS**. It incorporates multiple modules to handle distinct functionalities, including authentication, user management, document handling, and data ingestion. The system is designed with security, scalability, and maintainability in mind, leveraging role-based access control, structured DTOs, and database integration with Prisma ORM.
 
-## Description
+---
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Features
 
-## Installation
+### Authentication Module
+- **User Registration**: Register new users.
+- **User Login**: Authenticate users and provide JWT tokens.
+- **Role-Based Access Control (RBAC)**: Restrict access to certain endpoints based on roles (e.g., Admin).
 
-```bash
-$ npm install
+### User Module
+- **User Management**: CRUD operations for user entities.
+- **Role Management**: Admin-only access to certain operations.
+
+### Document Module
+- **File Upload**: Upload and store files with size restrictions.
+- **Document Management**: CRUD operations for document metadata.
+- **Streamable Downloads**: Retrieve uploaded files.
+
+### Ingestion Module
+- **Trigger Ingestion**: Start ingestion processes with customizable configurations.
+- **Process Tracking**: Monitor ingestion status.
+- **Process Management**: Retrieve or delete ingestion processes.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/)
+- [NestJS CLI](https://docs.nestjs.com/)
+- [Prisma ORM](https://www.prisma.io/)
+- A database (e.g., PostgreSQL, MySQL, SQLite).
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mohansharma916/JK_ASSIGNMENT
+   cd JK_ASSIGNMENT
+   ```
+
+2. Install dependencies:
+    ```
+    npm install
+    ```
+
+3. Set up your database:
+
+Configure your .env file with database credentials.
+use can use .env.example by removing ".example" i have added a database link 
+Generate Prisma client and apply migrations:
+
+```
+npx prisma generate
+npx prisma migrate dev
+npx prisma db push 
+
 ```
 
-## Running the app
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+3a. (Optional) If you want to create Demo data of 1000 user 
 
-# production mode
-$ npm run start:prod
+```
+npx prisma seed
+
 ```
 
-## Test
+4. Start the application:
 
-```bash
-# unit tests
-$ npm run test
+```
+npm run start:dev
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+## Modules and Endpoints
+### 1. Authentication Module
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Base URL: /auth
+Register User
 
-## Stay in touch
+URL: /auth/register
+Method: POST
+Body:
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+{
+  "username": "string",
+  "password": "string",
+  "email": "string"
+}
+```
+Response: 201 Created
+User Login
 
-## License
+URL: /auth/login
+Method: POST
+Body:
+```
+{
+  "username": "string",
+  "password": "string"
+}
 
-Nest is [MIT licensed](LICENSE).
+```
+Response: 200 OK
+Get All Users (Admin Only)
+
+URL: /auth
+Method: GET
+Headers:
+```
+{
+  "Authorization": "Bearer <access-token>"
+}
+```
+
+## 2. User Module
+
+Base URL: /users
+
+Get All Users: GET /users (Admin Only)
+
+Get User by ID: GET /users/:id
+
+Update User: PATCH /users/:id (Admin Only)
+
+Delete User: DELETE /users/:id (Admin Only)
+
+
+## 3. Document Module
+
+Base URL: /documents
+
+Upload a Document: POST /documents/upload (Admin Only)
+
+Get Document by Name: GET /documents/:name
+
+Create Document Entry: POST /documents
+
+Get All Documents: GET /documents
+
+Get Document by ID: GET /documents/:id
+
+Update Document: PATCH /documents/:id
+
+Delete Document: DELETE /documents/:id
+
+
+## 4. Ingestion Module
+
+Base URL: /ingestion
+
+Trigger Ingestion: POST /ingestion/trigger
+
+Get Process Status: GET /ingestion/status/:id
+
+List All Processes: GET /ingestion/all
+
+Delete Process: DELETE /ingestion/:id
+
+# Role Management
+
+Role-based access control is implemented across the project.
+
+
+# Implementation
+Decorator: @Roles(Role.ADMIN)
+
+Guards: RolesGuard, JwtAuthGuard
+
+
+
+# Project Structure
+```
+
+src/
+├── auth/
+│   ├── auth.controller.ts
+│   ├── auth.service.ts
+│   ├── dto/
+│   └── role.enum.ts
+├── users/
+│   ├── users.controller.ts
+│   ├── users.service.ts
+│   └── dto/
+├── documents/
+│   ├── documents.controller.ts
+│   ├── documents.service.ts
+│   └── dto/
+├── ingestion/
+│   ├── ingestion.controller.ts
+│   ├── ingestion.service.ts
+│   └── dto/
+└── common/
+    ├── decorators/
+    └── guards/
+```
+
